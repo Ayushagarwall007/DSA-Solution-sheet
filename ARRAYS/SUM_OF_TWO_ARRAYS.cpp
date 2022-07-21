@@ -19,10 +19,62 @@
 // Note :
 // You do not need to print anything, it has already been taken care of. Just implement the given function.
 
+vector<int> reverse(vector<int>v){
 
-#include<bita/stdc++.h>
-using namespace std;
-int main()
-{
-  
+   int s = 0;
+
+   int e = v.size()-1;
+
+   while(s<e){
+
+       swap(v[s] , v[e]);
+
+       s++;
+
+       e--;
+
+   }    
+
+   return v;
+
+}
+
+vector<int> findArraySum(vector<int>&a, int n, vector<int>&b, int m) {
+
+vector<int>ans;
+
+   int mul=1,i,j,res1=0,res2=0;
+
+   for(int i=n-1;i>=0;i--){
+
+       res1 = res1 + (a[i]*mul);
+
+       mul=mul*10;
+
+   }
+
+   mul=1;
+
+   for(int i=m-1;i>=0;i--){
+
+       res2 = res2 + (b[i]*mul);
+
+       mul=mul*10;
+
+   }
+
+   int total = res1+res2;
+
+   while(total > 0){
+
+       int ele = total % 10;
+
+       ans.push_back(ele);
+
+       total = total / 10;
+
+   }
+
+   return reverse(ans);
+
 }
