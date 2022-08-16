@@ -37,6 +37,8 @@ public:
                 if(j > i+1 && nums[j] == nums[j-1])
                     continue;
                 long long t2 = t1 - nums[j];
+             
+             // now applying the two sum in the rest of the array to find the rest of the sum
                 int l = j+1, r = nums.size()-1;
                 while(l < r){
                     int val = nums[l] + nums[r];
