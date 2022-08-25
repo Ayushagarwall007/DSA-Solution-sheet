@@ -3,4 +3,4 @@
 3:- kmp string matching algorithm
 4:- repeated string match leetcode
 5:- Bit MAnipulation single number and reversse k bits leetcode 
-
+6- naive algo  for string matching
