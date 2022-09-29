@@ -1,0 +1,106 @@
+// You are given an integer array nums. Two players are playing a game with this array: player 1 and player 2.
+
+// Player 1 and player 2 take turns, with player 1 starting first. Both players start the game with a score of 0. At each turn, the player takes one of the numbers from either end of the array (i.e., nums[0] or nums[nums.length - 1]) which reduces the size of the array by 1. The player adds the chosen number to their score. The game ends when there are no more elements in the array.
+
+// Return true if Player 1 can win the game. If the scores of both players are equal, then player 1 is still the winner, and you should also return true. You may assume that both players are playing optimally.
+
+ 
+
+// Example 1:
+
+// Input: nums = [1,5,2]
+// Output: false
+// Explanation: Initially, player 1 can choose between 1 and 2. 
+// If he chooses 2 (or 1), then player 2 can choose from 1 (or 2) and 5. If player 2 chooses 5, then player 1 will be left with 1 (or 2). 
+// So, final score of player 1 is 1 + 2 = 3, and player 2 is 5. 
+// Hence, player 1 will never be the winner and you need to return false.
+// Example 2:
+
+// Input: nums = [1,5,233,7]
+// Output: true
+// Explanation: Player 1 first chooses 1. Then player 2 has to choose between 5 and 7. No matter which number player 2 choose, player 1 can choose 233.
+// Finally, player 1 has more score (234) than player 2 (12), so you need to return True representing player1 can win.
+ 
+
+// Constraints:
+
+// 1 <= nums.length <= 20
+// 0 <= nums[i] <= 107
+
+class Solution {
+public:
+    int solve(vector<int> &nums ,int i,int j)
+    {
+        if(i>j)return 0;
+        if(i==j) return nums[i];
+//isme aab jaab player one choose kaaregaa to player 2 min element legaa baaki ke array se jisse player 1 ki jitne ke chances kaam ho jaaye
+        // when the player one takes first element of the array
+        int option1= nums[i]+min(solve(nums,i+2,j),solve(nums,i+1,j-1));
+        
+        // when the player one takes the last element of the array
+    
+        int option2= nums[j]+min(solve(nums,i,j-2),solve(nums,i+1,j-1));
+        
+        return max(option1,option2);
+    }
+    bool PredictTheWinner(vector<int>& nums) {
+        int p1Score=solve(nums,0,nums.size()-1);
+        
+        int total_score=0;
+        for(int i=0;i<nums.size();i++)
+        {
+            total_score+=nums[i];
+        }
+        int p2Score=total_score-p1Score;
+        
+        if(p1Score>=p2Score)return true;
+        return false;
+            
+        
+    }
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+class Solution {
+public:
+    int solve(vector<int>& nums, bool flag, int i, int j)
+    {
+        if(i>j)
+        {
+            return 0;
+        }
+        
+        if(flag)
+        {
+		    // Getting maximum from either ends of array for player 1
+            return max(nums[i]+solve(nums,0,i+1,j), nums[j]+solve(nums,0,i,j-1));
+        }
+        else
+        {
+		   // Flipping chance to 0 and minimizing the number selected by Player 2 and then moving forward in the array 
+            return min(solve(nums,1,i+1,j), solve(nums,1,i,j-1));
+        }
+        
+    }
+    
+    bool PredictTheWinner(vector<int>& nums) {
+        int sum = accumulate(nums.begin(),nums.end(),0);
+        int player1 = solve(nums,true,0,nums.size()-1);
+        int player2 = sum-player1;
+        if(player1 >= player2){
+            return true;
+        }
+        return false;
+    }
+};
