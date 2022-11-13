@@ -1,0 +1,44 @@
+You are given an unordered array consisting of consecutive integers [1, 2, 3, ..., n] without any duplicates. You are allowed to swap any two elements. Find the minimum number of swaps required to sort the array in ascending order
+Eg
+
+Input:
+nums = {2, 8, 5, 4}
+Output:
+1
+Explaination:
+swap 8 with 4.
+
+Input:
+nums = {2,4,5,1,3}
+Output:
+3
+image
+
+My Approach:
+Store the elements value and their corresponding index in a pair and we have a vector of pairs
+now sort the vector according to their value
+Now traverse this vector V and compare V[i].second & i
+If equal that means they were at the same position in the orignal array so dont do anything else swap V[i] with V[ V[i].second]
+Now it may happen that even after swapping the element is not in the correct position so we do i--
+In a way we first sort the array and then compare it with the orignal array to to find the swaps
+	int minSwaps(vector<int>&nums)
+	{
+	    vector<pair<int,int>> v;
+	    int n=nums.size();
+	    for(int i=0;i<n;i++)
+	    {
+	        v.push_back({nums[i],i});
+	    }
+	    sort(v.begin(),v.end());
+	    int swaps=0;
+	    for(int i=0;i<n;i++)
+	    {
+	        if(v[i].second==i) continue;
+	        else {
+	            swaps++;
+	            swap(v[i],v[v[i].second]);
+	            i--;
+	        }
+	    }
+	    return swaps;
+	}
