@@ -90,3 +90,52 @@ bool checkBipartite(int curr,vector<int>& visited,vector<vector<int>>&graph)
     return   true;
 }
 };
+
+
+
+
+
+
+// .USING DFS ALGORITHM TO SOLVE THIS QUESTION
+
+// using dfs solution
+// A. Traverse each node of the graph and try to assign a color to them such that alternating nodes are of same color.
+// B. If at any step, the child node color matches with the parent node color, then the graph is not bipartite.
+// C. If no B found, then the graph is bipartite. So, return true at the end.
+// D. Here, the two colors are represented by 0 and 1.
+class Solution {
+public:
+vector<int>vis;
+vector<int> col;
+bool dfs(int v,int c,vector<vector<int>>&graph)
+{
+    vis[v]=1;
+    col[v]=c;
+    for(int child:graph[v])
+    {
+        if(vis[child]==0)
+        {
+            if(dfs(child,c^1,graph)==false) return false;
+        }
+        else
+        {
+            if(col[v]==col[child])
+            return false;
+        }
+    }
+    return  true;
+}
+    bool isBipartite(vector<vector<int>>& graph) {
+        int n=graph.size();
+        vis.resize(n);
+        col.resize(n);
+        for(int i=0;i<n;i++)
+        {
+            if(vis[i]==0 and dfs(i,0,graph)==false)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+};
