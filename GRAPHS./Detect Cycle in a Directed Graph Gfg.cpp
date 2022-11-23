@@ -68,3 +68,53 @@ class Solution {
         return false;
     }
 };
+
+
+// APPROACH II
+// JUST DO THE TOPOLOGICAl sort if the topovector is equal to the size of the adjancy list then it does not contain cycle else it contains cycle 
+// so using the topological sort here using the bfs algorithm
+class Solution
+{
+	public:
+	//Function to return list containing vertices in Topological order. 
+	 bool is Cyclic(int V, vector<int> adj[]) 
+	{
+	    int indegree[V]={0};
+	    for(int i=0;i<V;i++)
+	    {
+	        for(auto it:adj[i])
+	        {
+	            indegree[it]++;
+	        }
+	    }
+         int count=0;
+	    queue<int>q;
+	    for(int i=0;i<V;i++)
+	    {
+	        if(indegree[i]==0)
+	            q.push(i);
+	    }
+	    
+	    
+	    while(!q.empty())
+	    {
+	        int node=q.front();
+	        q.pop();
+	        count++;
+	       // node is your toposort
+	       //so remove it from the indegree
+	        for(auto i:adj[node])
+	        {
+	        indegree[i]--;
+	        if(indegree[i]==0)q.push(i);
+	        }
+	        
+	        
+	    }
+         if(count==V)return false;
+	    return true;
+        
+        
+	}
+    
+};
