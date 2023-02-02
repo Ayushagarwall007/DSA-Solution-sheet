@@ -17,6 +17,7 @@ class Solution{
 	            else{
 	                dp[i][j] = dp[i-1][j]%mod ;
 	            }
+			
 	        }
 	    }
 	    return dp[n][sum]%mod ;
