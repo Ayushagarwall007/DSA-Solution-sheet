@@ -8,6 +8,46 @@
 
 
 
+// Let the sums of the elements of both the subsets be ‘S1’ and ‘S2’.
+
+ 
+
+// Then, S1 + S2 = total_sum (Here, ‘total_sum’ is the sum of all the array elements).
+
+ 
+
+// Also, the condition S1 - S2 = D needs to be satisfied.
+
+ 
+
+// We get 2 * S1 = total_sum + D when we sum these two equations.
+
+ 
+
+// And, if we subtract these two equations, we get 2 * S2 = total_sum - D.
+
+ 
+
+// The problem is reduced to finding subsets with subset-sum equal to (total_sum - D) / 2 (let’s say target), which is our standard Knapsack problem, solved by Dynamic Programming.
+
+ 
+
+// The steps are as follows:
+
+// First, we need to handle some base cases:
+// Since S1 is even, which is only possible if (total_sum - D) is even, if not, then the answer is 0.
+// Also, since all the elements are ≥ 0, that means S2 ≥ 0, which implies total_sum - D ≥ 0. If not, then the answer is 0.
+// Create a 2D DP array of dimensions N + 1 and target + 1.
+// Here, DP[i][j] denotes the number of ways to form a subset of sum j if we only consider 1st i elements.
+// Two cases arise:
+// If we don’t include this element in our subset:
+// DP[i][j] = DP[i - 1][j]
+// If we include this element in our subset (this is only possible if ARR[i] >= j):
+// DP[i][j] += DP[i - 1][j - ARR[i]]
+// Finally, return DP[N][target], as it stores the number of ways to partition this array.
+
+
+
 
 int subsetSum(int a[], int n, int sum)
 {
