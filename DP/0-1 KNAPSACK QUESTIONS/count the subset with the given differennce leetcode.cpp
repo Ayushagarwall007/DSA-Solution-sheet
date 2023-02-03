@@ -34,6 +34,54 @@
 
 // The steps are as follows:
 
+ 
+
+// First, we need to handle some edge cases:
+// Since S1 is even, which is only possible if (total_sum - D) is even, if not, then the answer is 0.
+// Also, since all the elements are ≥ 0, that means S2 ≥ 0, which implies total_sum - D ≥ 0. If not, then the answer is 0.
+// Now let’s establish the states of our DP. One state will be the element's position (‘pos’), and another state will be the ‘sum’. The dimensions of the DP table will be (N + 1) * (target + 1). Initialize all values to -1.
+// So, create a ‘rec()’ function that takes two parameters, ‘pos’ and ‘sum’.
+// The base case is:
+// If pos == 0, it means no elements are left. So, if sum == 0, return 1 else return 0.
+// If DP[pos][sum] != -1 return DP[pos][sum]
+// Two cases arise:
+// If we don’t include this element in our subset:
+// DP[pos][sum] = rec(pos - 1, sum).
+// If we include this element in our subset (this is only possible if ARR[pos] >= sum):
+// DP[pos][sum] += rec(pos - 1, sum - ARR[pos])
+// Return DP[pos][sum]
+// Finally, call the ‘rec()’ function with parameters N and target and return the result.
+
+
+
+
+
+// Let the sums of the elements of both the subsets be ‘S1’ and ‘S2’.
+
+ 
+
+// Then, S1 + S2 = total_sum (Here, ‘total_sum’ is the sum of all the array elements).
+
+ 
+
+// Also, the condition S1 - S2 = D needs to be satisfied.
+
+ 
+
+// We get 2 * S1 = total_sum + D when we sum these two equations.
+
+ 
+
+// And, if we subtract these two equations, we get 2 * S2 = total_sum - D.
+
+ 
+
+// The problem is reduced to finding subsets with subset-sum equal to (total_sum - D) / 2 (let’s say target), which is our standard Knapsack problem, solved by Dynamic Programming.
+
+ 
+
+// The steps are as follows:
+
 // First, we need to handle some base cases:
 // Since S1 is even, which is only possible if (total_sum - D) is even, if not, then the answer is 0.
 // Also, since all the elements are ≥ 0, that means S2 ≥ 0, which implies total_sum - D ≥ 0. If not, then the answer is 0.
