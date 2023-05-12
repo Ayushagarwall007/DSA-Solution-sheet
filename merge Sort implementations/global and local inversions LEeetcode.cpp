@@ -34,7 +34,6 @@
 
 
 
-
 class Solution {
 public:
     long long countAndMerge(vector<int>& arr, long long low, long long mid, long long high) {
