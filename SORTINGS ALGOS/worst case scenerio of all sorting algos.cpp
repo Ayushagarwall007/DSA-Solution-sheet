@@ -35,4 +35,13 @@
 
 
 
-2-> SELECTION SORT WORST CASE SCENRIO
+2-> QUICK SORT WORST CASE SCENRIO
+
+// Worst Case:
+// The worst case occurs when the partition process always picks the first or last element as the pivot. If we consider the above partition strategy where the last element is always picked as a pivot,
+// the worst case would occur when the array is already sorted in increasing or decreasing order. Following is the recurrence for the worst case.
+
+// T(N) = T(0) + T(N-1) + \theta    (N) which is equivalent to
+// T(N) = T(N-1) + \theta    (N)
+
+// The solution to the above recurrence is O(n2).
