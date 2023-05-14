@@ -71,6 +71,21 @@ int main()
 	return 0;
 }
 
+
+
+to create the random function for finding the partioon index
+int partition_r(int arr[], int low, int high)
+{
+    // Generate a random number in between
+    // low .. high
+    srand(time(NULL));
+    int random = low + rand() % (high - low);
+ 
+    // Swap A[random] with A[high]
+    swap(arr[random], arr[high]);
+ 
+    return partition(arr, low, high);
+}
 		
 Why Quick Sort is preferred over MergeSort for sorting Arrays ?
 // Quick Sort in its general form is an in-place sort (i.e. it doesn’t require any extra storage) whereas merge sort requires O(N) extra storage, N denoting the array size which may be quite expensive. 
