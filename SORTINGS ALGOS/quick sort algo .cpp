@@ -6,56 +6,71 @@
 
 Quicksort's best-case time complexity is O (n*logn) .
 
-#include<bits.stdc++.h>
+// C++ code to implement quicksort
+
+#include <bits/stdc++.h>
 using namespace std;
-int partion(int arr[],int s,int e)
+
+// This function takes last element as pivot,
+// places the pivot element at its correct position
+// in sorted array, and places all smaller to left
+// of pivot and all greater elements to right of pivot
+int partition(int arr[], int low, int high)
 {
-// 	taking the 0th index as the pivot element
-	int pivot=arr[s];
-	int cnt=0;
-// 	counting the number of elements samller than the pivot element
-	for(int i=s+1;i<=e;i++)
-		if(arr[i]<pivot)cnt++;
-	
-// 	now placing the pivot element at the right position
-	int pivotIndex=s+cnt;
-	swap(arr[pivotIndex],arr[s]);
-// aab left or right part ke elements to ajust kaar dete hai.		 
-	int i=s;
-	int j=e;	 
-	while(i<pivotIndex and j>pivotIndex)
-	{
-		while(arr[i]<=pivot)i++;
-		while(arr[j]>pivot)j--;
-		if(i<pivotIndex and j>pivotIndex)
-		{
-			swap[arr[i++],arr[j--])
+	// Choosing the pivot
+	int pivot = arr[high];
+
+	// Index of smaller element and indicates
+	// the right position of pivot found so far
+	int i = (low - 1);
+
+	for (int j = low; j <= high - 1; j++) {
+
+		// If current element is smaller than the pivot
+		if (arr[j] < pivot) {
+
+			// Increment index of smaller element
+			i++;
+			swap(arr[i], arr[j]);
 		}
 	}
-				 return pivotIndex;
+	swap(arr[i + 1], arr[high]);
+	return (i + 1);
 }
-void quickSort(int arr[],int s,int e)
+
+// The main function that implements QuickSort
+// arr[] --> Array to be sorted,
+// low --> Starting index,
+// high --> Ending index
+void quickSort(int arr[], int low, int high)
 {
-	if(s>=e)return;
-	int p=partiton(arr,s,e);
-	quickSort(arr,s,p-1);
-	quickSort(arr,p+1,e);
+	if (low < high) {
+
+		// pi is partitioning index, arr[p]
+		// is now at right place
+		int pi = partition(arr, low, high);
+
+		// Separately sort elements before
+		// partition and after partition
+		quickSort(arr, low, pi - 1);
+		quickSort(arr, pi + 1, high);
+	}
 }
-int main() {
 
-    int arr[10] = {2,4,1,6,9 ,9,9,9,9,9};
-    int n = 10;
+// Driver Code
+int main()
+{
+	int arr[] = { 10, 7, 8, 9, 1, 5 };
+	int N = sizeof(arr) / sizeof(arr[0]);
 
-    quickSort(arr, 0, n-1);
-
-    for(int i=0; i<n; i++) 
-    {
-        cout << arr[i] << " ";
-    } cout << endl;
-
-
-    return 0;
+	// Function call
+	quickSort(arr, 0, N - 1);
+	cout << "Sorted array: " << endl;
+	for (int i = 0; i < N; i++)
+		cout << arr[i] << " ";
+	return 0;
 }
+
 		
 Why Quick Sort is preferred over MergeSort for sorting Arrays ?
 // Quick Sort in its general form is an in-place sort (i.e. it doesn’t require any extra storage) whereas merge sort requires O(N) extra storage, N denoting the array size which may be quite expensive. 
